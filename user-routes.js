@@ -8,8 +8,8 @@ var app = module.exports = express.Router();
 // XXX: This should be a database of users :).
 var users = [{
   id: 1,
-  username: 'gonto',
-  password: 'gonto'
+  username: 'Edgar',
+  password: '123456'
 }];
 
 function createIdToken(user) {
@@ -99,11 +99,11 @@ app.post('/sessions/create', function(req, res) {
   var user = _.find(users, userScheme.userSearch);
   
   if (!user) {
-    return res.status(401).send("The username or password don't match");
+    return res.status(401).json({ error: "The username or password don't match"});
   }
 
   if (user.password !== req.body.password) {
-    return res.status(401).send("The username or password don't match");
+    return res.status(401).json({ error: "The username or password don't match"});
   }
 
   res.status(201).send({
